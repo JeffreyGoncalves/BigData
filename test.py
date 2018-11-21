@@ -94,19 +94,3 @@ def increase_contrast(picture, contrast) :
 			new_pic[x][y][1] = g
 			new_pic[x][y][2] = b
 	return new_pic
-
-train_data = loadmat("../Data/train_32x32.mat")
-test_data = loadmat("../Data/test_32x32.mat")
-
-for image_idx in range(len(train_data["y"])) :
-	toGrayScale(train_data["X"][:, :, :, image_idx])
-	pic_test = equalize(train_data["X"][:, :, :, image_idx])
-	pic_test_2 = binarise(train_data["X"][:, :, :, image_idx])
-	#new_pic = increase_contrast(train_data["X"][:, :, :, image_idx], 100)
-	plt.imshow(train_data["X"][:, :, :, image_idx])
-	plt.show()
-	plt.imshow(pic_test)
-	plt.show()
-	plt.imshow(pic_test_2)
-	plt.show()
-	#plt.imshow(new_pic)
