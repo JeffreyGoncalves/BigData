@@ -1,17 +1,33 @@
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from scipy.io import loadmat
 import time
 import test
+import preprocessing as pr
+from sklearn.decomposition import PCA
+import png
 
 print(" ** MDClassifier.py : starting program")
 print(" ** MDClassifier.py : loading data files")
 
 train_data = loadmat("../Data/train_32x32.mat")
 test_data = loadmat("../Data/test_32x32.mat")
-train_eq_data = loadmat("../Data/train_32x32_equalized.mat")
-test_eq_data = loadmat("../Data/test_32x32_equalized.mat")
+pca_data = train_data.copy()
 
+# ~ for i in range(len(train_data['y'])) :
+for i in range(1) :
+    picture = pca_data['X'][:,:,:,i]
+    nsamples, x, y = pca_data['X'][:, :, :, i].shape
+    X = picture.reshape(nsamples, x*y)
+    for i in range(x) :
+        print(X[i])
+    # PCA 
+    pca = PCA(n_components=32)
+    pca.fit(X)
+    X = pca.components_
+    plt.imshow(X)
+    plt.show()
+    
 
 print(" ** MDClassifier.py : applying pre-processing")
 
@@ -53,7 +69,8 @@ def calculate_success_rate(test, train):
         idClass = find_classes(test['X'][:, :, :, i], bc)
         if (idClass == test['y'][i]):
             success += 1
-    return success
+    successRate = 100*success/len(test["y"])
+    return success, successRate
 
 if __name__ == "__main__":
     
@@ -61,9 +78,9 @@ if __name__ == "__main__":
     div = False
     print(" ** MDClassifier.py : starting to compute learning vectors")
     print(" ** MDClassifier.py : computing with default data")
-    success = calculate_success_rate(train_eq_data, train_eq_data)
+    [success, successRate] = calculate_success_rate(test_data, pca_data)
     print("\n ** MDClassifier.py : success = " + str(success))
-    successRate = 100*success/len(train_data["y"])
+    
     print(" ** MDClassifier.py : sucess rate = " + str(successRate) + "%")
     computeEnd = time.time()
     computeDuration = computeEnd - computeStart

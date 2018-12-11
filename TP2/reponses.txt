@@ -47,3 +47,51 @@
 		afin d'adapter les poids de chaque donnée dans l'optique d'améliorer le
 		classifieur à chaque Epoch. Ici, c'est un taux d'erreur probabilistique 
 		logarithmique.
+
+3) Le problème ici était le learning rate (taux d'apprentissage) qui n'était pas
+   adapté à la taille du set, et qui n'évoluait pas. L'idée ici est d'utiliser un learning_rate scheduler
+   pour modifier le taux d'apprentissage durant le traitement (par exemple, tous les
+   10 epoch, on le multiplie par 0.1). 
+
+4) La précision du classifieur est bien moindre, dans son état initial, avec les
+   données de test par rapport aux données d'entrainement. Cela est surement dû 
+   à la taille du set d'entrainement qui est bien plus faible que celle de test
+   (facteur 10), ce qui fait que le classifieur n'a pas affiné ses patternes
+   --> Under-fitting
+
+5) Notes : le LeNet est, à priori, moins rapide pour l'apprentissage par epoch que
+   le CNN, mais chaque traitement d'Epoch est bien plus rapide.
+   En outre, il semble adéquat d'augmenter le nombre d'epoch pour ce réseau
+   neuronal
+   De plus, avec une grande quantité de données, l'under-fitting est plus rapide à
+   combler que pour l'autre CNN
+
+6) Notes : Ah oui, augmenter le nombre de couches ralentit considérablement le
+   calcul. Cependant, pour 4-5 couches, c'est le plus rapide des 3 mais aussi le
+   plus nul en termes de progression par epoch et en termes de prédiction test/train
+   Je pense sincèrement que c'est le plus basique et le plus nul des 3
+
+CNN
+size before processing :  torch.Size([10, 3, 32, 32])
+size after step 1 :  torch.Size([10, 20, 14, 14])
+size after step 2 :  torch.Size([10, 50, 5, 5])
+size after step 3 :  torch.Size([10, 1250])
+size after step 4 :  torch.Size([10, 500])
+size after step 5 :  torch.Size([10, 10])
+
+LeNet
+size before processing :  torch.Size([10, 3, 32, 32])
+size after step 1 :  torch.Size([10, 6, 14, 14])
+size after step 2 :  torch.Size([10, 16, 5, 5])
+size after step 3 :  torch.Size([10, 400])
+size after step 4 :  torch.Size([10, 120])
+size after step 5 :  torch.Size([10, 84])
+size after step 6 :  torch.Size([10, 10])
+
+Custom MLP
+size before processing :  torch.Size([10, 3, 32, 32])
+size after step 1 :  torch.Size([10, 3072])
+size after step 2 :  torch.Size([10, 500])
+size after step 3 :  torch.Size([10, 200])
+size after step 4 :  torch.Size([10, 100])
+size after step 5 :  torch.Size([10, 10])
