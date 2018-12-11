@@ -1,0 +1,49 @@
+—  Ligne 52, à quoi correspond une epoch ?
+	--> C'est un ensemble de donnees complet à donner à notre réseau 
+		neuronal afin qu'il puisse traiter ce qui lui est demandé (dans
+		notre cas, quel est le chiffre affiché). Ici, le set de données
+		d'entrainement est répété 10 fois pour améliorer le classifieur
+		
+—  Qu’est ce qu’un mini-batch et pourquoi l’utilise-t-on ?
+	--> Un mini-batch est un morceau d'epoch sur lequel le réseau
+		neuronal va effectuer son entrainement sous formes d'itérations
+		successives afin de s'améliorer à reconnaitre les données traitées.
+		Dans notre cas, nous avons divisé nos données en 10 mini-batch de 
+		10 images de 32*32 pixels à trois composantes (3 cartes de 
+		colorimétrie pour chaque image, 32*32 valeurs par carte).
+		
+—  A quoi correspondent les ḿethodes __init__ et forward de la classe CNN ?
+	--> La méthode __init__ sert à initialiser dans la classe CNN les objets 
+		permettant d'effectuer les convolutions et transformations linéaires.
+
+		Quand à la methode forward, c'est la méthode s'appelant, pour un
+		objet CNN qu'on appelle "net", par l'expression "net(x)", x étant les
+		données que l'on souhaite passer au programme, afin d'entrainer ledit
+		objet pour notre machine learning.
+
+—  A partir de la ligne 13, à quoi servent nn.Conv2d et nn.Linear ?
+	--> nn.Conv2D permet de realiser une convolution sur les cartes de couleurs
+		des images des batchs (ici, une première convolution pour passer de
+		3 cartes couleurs à 20 cartes de données, puis de 20 cartes à 50 cartes).
+
+		Quant à nn.Linear, celle-ci permet de réaliser une transformation
+		linéaire afin de modifier le nombre de données en sortie (ici, après
+		convolution et applatissage des données, on s'en sert pour passer d'un
+		vecteur de 1250 valeurs à un vecteur à 500 valeurs, puis d'un vecteur de
+		500 valeurs à 10 valeurs, le tout pour chaque image)
+
+—  A partir de la ligne 19, à quoi servent F.relu et F.max_pool2d ?
+	--> F.relu sert à absorber toute valeur qui serait négative durant le
+		traitement des données, les passant de leur valeur initiale à 0.
+
+		F.max_pool2d sert à ???
+
+—  Ligne 50, à quoi sert l'optimizer optim.SGD ?
+	--> Il sert à optimiser la reconnaissance des patternes et la classification
+		en utilisant un algorithme stochastique de descente de gradient.
+
+—  Ligne 57, qu'est ce que la loss ?
+	--> La loss ici représente le taux d'erreur prévisionnel (probabilistique)
+		afin d'adapter les poids de chaque donnée dans l'optique d'améliorer le
+		classifieur à chaque Epoch. Ici, c'est un taux d'erreur probabilistique 
+		logarithmique.
