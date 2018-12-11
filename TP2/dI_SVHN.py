@@ -23,15 +23,15 @@ class CNN(nn.Module):
             x = F.log_softmax(self.fc2(x), dim=1)
             return x
 
-def error_rate(class_predicted, real_classes) :
+def success_rate(class_predicted, real_classes) :
     size_cl = len(class_predicted)
     size_rc = len(real_classes)
     if size_rc == size_cl :
-        errors = 0
+        success = 0
         for i in range(size_cl) :
-            if class_predicted[i] != real_classes[i] :
-                errors = errors + 1
-        return errors/size_cl*100
+            if class_predicted[i] == real_classes[i] :
+                success = success + 1
+        return success/size_cl*100
     else :
         return 0
 
@@ -53,13 +53,16 @@ if __name__ == '__main__':
     test_data = torch.from_numpy(test_data['X'].astype('float32')).permute(3, 2, 0, 1)[:1000]
 
     # Hyperparameters
-    epoch_nbr = 10
-    batch_size = 5
-    learning_rate = 0.01
+    epoch_nbr = 100
+    batch_size = 10
+    learning_rate = 1e-4
 
     net = CNN()
     optimizer = optim.SGD(net.parameters(), lr=learning_rate)
+    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5)
     for e in range(epoch_nbr):
+        success = 0.0
+        scheduler.step()
         print("Epoch", e)
         for i in range(0, train_data.shape[0], batch_size):
             optimizer.zero_grad() # Reset all gradients to 0
@@ -68,6 +71,9 @@ if __name__ == '__main__':
             loss = F.nll_loss(predictions_train, train_label[i:i+batch_size])
             loss.backward()
             optimizer.step() # Perform the weights update
-            print("Error rate : ", error_rate(class_predicted, train_label[i:i+batch_size]), " %")
+            success = success + success_rate(class_predicted, train_label[i:i+batch_size])
+            print("Success rate : ", success_rate(class_predicted, train_label[i:i+batch_size]), " %")
+        success = success / batch_size
+        print("Final success rate : ", success, " %")
         print()
 
