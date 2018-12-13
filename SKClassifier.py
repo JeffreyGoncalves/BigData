@@ -19,7 +19,7 @@ def vectors_reduction(variance, data):
     dict_data['X'] = updated_data
     dict_data['y'] = data['y']
     print(data['X'].shape)
-    print(np.shape(dict_data['X']))
+    print(len(dict_data['y']))
 
 
 if __name__ == "__main__":
