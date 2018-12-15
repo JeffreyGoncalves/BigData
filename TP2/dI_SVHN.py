@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 from scipy.io import loadmat
 torch.manual_seed(0)
 
@@ -101,7 +101,7 @@ if __name__ == '__main__':
     train_data = loadmat('../../Data/train_32x32.mat')
     test_data = loadmat('../../Data/test_32x32.mat')
 
-    train_label = train_data['y'][:1000]
+    train_label = train_data['y'][:10000]
     train_label = np.where(train_label==10, 0, train_label)
     train_label = torch.from_numpy(train_label.astype('int')).squeeze(1)
     train_data = torch.from_numpy(train_data['X'].astype('float32')).permute(3, 2, 0, 1)[:1000]
@@ -112,18 +112,18 @@ if __name__ == '__main__':
     test_data = torch.from_numpy(test_data['X'].astype('float32')).permute(3, 2, 0, 1)[:1000]
 
     # Hyperparameters
-    epoch_nbr = 20
+    epoch_nbr = 100
     batch_size = 10
     learning_rate = 1e-4
 
-    net = LeNet()
+    net = CNN()
     optimizer = optim.SGD(net.parameters(), lr=learning_rate)
-    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5)
+    # ~ scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.75)
     x_axis = np.arange(0, epoch_nbr, 1)
-    y_axis = [0.0]
+    y_axis = []
     for e in range(epoch_nbr):
         success = 0.0
-        scheduler.step()
+        # ~ scheduler.step()
         print("Epoch", e)
         for i in range(0, train_data.shape[0], batch_size):
             optimizer.zero_grad() # Reset all gradients to 0
@@ -138,8 +138,10 @@ if __name__ == '__main__':
         print("Final success rate : ", success, " %")
         print()
         y_axis.append(success)
-    # plt.plot(x_axis, y_axis)
-    # plt.plot()
+    plt.plot(x_axis, y_axis)
+    plt.gca().set_ylim([0,100])
+    plt.gca().set_xlim([0,epoch_nbr-1])
+    plt.show()
 
     # Predictions sur les données de test
     predictions_test = net(test_data)
