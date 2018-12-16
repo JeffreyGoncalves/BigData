@@ -1,0 +1,24 @@
+(TEST : SVC (sklearn.svm.SVC)
+** MDClassifier.py : starting program 
+
+ ** MDClassifier.py : loading data files
+
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (73257, 100)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDClassifier.py : final pca_dat shape =  (73257, 100)
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (26032, 100)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDKClassifier.py : final pca_dat shape =  (26032, 100)
+ ** MDClassifier.py : starting SVC classifier
+ ** MDClassifier.py : training SVC
+ ** MDClassifier.py : computing duration (SVC : training) = 92.58163528045019 min
+ ** MDClassifier.py : starting SVC predictions on test data
+ ** MDClassifier.py : end of SVC predictions on test data
+ ** MDClassifier.py : calculating success rate on test data
+ ** MDClassifier.py : success = 5099
+ ** MDClassifier.py : sucess rate = 19.587430854333128%
+
+ ** MDClassifier.py : computing duration = 96.70685665210088 min
+
