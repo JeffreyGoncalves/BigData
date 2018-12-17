@@ -32,7 +32,7 @@ def pca_filter(data, ncomp=0, ndata=0):
     print(" ** SKClassifier.py : final pca_dat shape = ", np.shape(pca_data))
     
     print(" ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...")
-    return pca_data
+    return np.array(pca_data, order='C')
 
 
 def vectors_reduction(data, ncomp=2, ndata=0):

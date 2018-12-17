@@ -92,15 +92,15 @@ if __name__ == "__main__":
     x, y, nsamples, nb_test = np.shape(test_mat['X'])
     
     # Setting training data into line vectors
-    train_data = np.ndarray(shape=(nb_train, x*y*nsamples), dtype=np.uint8)
-    train_labels = np.ndarray(shape=(nb_train), dtype=np.uint8)
+    train_data = np.ndarray(shape=(nb_train, x*y*nsamples), dtype=np.uint8, order='C')
+    train_labels = np.ndarray(shape=(nb_train), dtype=np.uint8, order='C')
     for i in range(nb_train) :
         train_data[i] = train_mat['X'][:, :, :, i].copy().flatten()
         train_labels[i] = train_mat['y'][i][0]
     
     # Setting testing data into line vectors
-    test_data = np.ndarray(shape=(nb_test, x*y*nsamples), dtype=np.uint8)
-    test_labels = np.ndarray(shape=(nb_test), dtype=np.uint8)
+    test_data = np.ndarray(shape=(nb_test, x*y*nsamples), dtype=np.uint8, order='C')
+    test_labels = np.ndarray(shape=(nb_test), dtype=np.uint8, order='C')
     for i in range(nb_test) :
         test_data[i] = test_mat['X'][:, :, :, i].copy().flatten()
         test_labels[i] = test_mat['y'][i][0]
@@ -111,9 +111,9 @@ if __name__ == "__main__":
     computeStart = time.time()
     div = False
     
-    pca_train = sk.pca_filter(train_data, 20)
+    pca_train = sk.pca_filter(train_data, 10)
     print(" ** MDClassifier.py : final pca_dat shape = ", np.shape(pca_train))
-    pca_test = sk.pca_filter(test_data, 20)
+    pca_test = sk.pca_filter(test_data, 10)
     print(" ** MDKClassifier.py : final pca_dat shape = ", np.shape(pca_test))
     
     
@@ -125,11 +125,11 @@ if __name__ == "__main__":
     # ~ predicted_labels = dmin.find_class_array(pca_test)
     # ~ print()
     
-    # ********** sklearn.SVM classifier ************ #
-    svc = svm.SVC()
+    # ~ # ********** sklearn.SVM classifier ************ #
+    svc = svm.SVC(degree=1)
     print(" ** MDClassifier.py : starting SVC classifier")
     print(" ** MDClassifier.py : training SVC")
-    svc.fit(pca_train, train_labels)
+    svc.fit(train_data, train_labels)
     
     div_mid = False
     computeMid = time.time()
@@ -141,7 +141,7 @@ if __name__ == "__main__":
     print(" ** MDClassifier.py : computing duration (SVC : training) = " + str(computeDurationMid) + unit)
     
     print(" ** MDClassifier.py : starting SVC predictions on test data")
-    predicted_labels = svc.predict(pca_test)
+    predicted_labels = svc.predict(test_data)
     print(" ** MDClassifier.py : end of SVC predictions on test data")
     
     # ********** sklearn.neighbors classifier ****** #
@@ -149,11 +149,11 @@ if __name__ == "__main__":
     # ~ nb_neighbors = 1 # Must be int >= 1
     # ~ neighbors_kdtree = neighbors.NearestNeighbors(n_neighbors=nb_neighbors, algorithm='kd_tree')
     # ~ print(" ** MDClassifier.py : training Nearest Neighbors model")
-    # ~ neighbors_kdtree.fit(pca_train, train_labels)
+    # ~ neighbors_kdtree.fit(train_data, train_labels)
     # ~ print(" ** MDClassifier.py : starting Nearest Neighbors predictions on test data")
-    # ~ distances, indices = neighbors_kdtree.kneighbors(pca_test)
-    # ~ predicted_labels = np.ndarray(shape=(len(pca_test)))
-    # ~ for i in range(len(pca_test)) :
+    # ~ distances, indices = neighbors_kdtree.kneighbors(test_data)
+    # ~ predicted_labels = np.ndarray(shape=(len(test_data)))
+    # ~ for i in range(len(test_data)) :
         # ~ mean_distances = {}
         # ~ if nb_neighbors == 2 :
             # ~ predicted_labels[i] = train_labels[indices[i]]
@@ -184,7 +184,6 @@ if __name__ == "__main__":
     # Determining success rate of model
     print(" ** MDClassifier.py : calculating success rate on test data")
     [success, successRate] = calculate_success_rate(test_labels, predicted_labels)
-    # ~ [success, successRate] = calculate_success_rate(pca_test_data, predicted_labels)
     print(" ** MDClassifier.py : success = " + str(success))
     print(" ** MDClassifier.py : sucess rate = " + str(successRate) + "%")
     print()
