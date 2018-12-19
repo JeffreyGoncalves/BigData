@@ -22,3 +22,255 @@
 
  ** MDClassifier.py : computing duration = 96.70685665210088 min
 
+ ////////////////////////////////////////////////////////////
+ 
+ (TEST : Nearest Neighbors, 5000 train, full test, PCA @ Variance=0.95)
+  ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (5000, 52)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDClassifier.py : final pca_dat shape =  (5000, 52)
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (26032, 52)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDKClassifier.py : final pca_dat shape =  (26032, 52)
+ ** MDClassifier.py : starting Nearest Neighbors classifier
+ ** MDClassifier.py : training Nearest Neighbors model
+ ** MDClassifier.py : starting Nearest Neighbors predictions on test data
+ ** MDClassifier.py : ending Nearest Neighbors predictions on test data
+ ** MDClassifier.py : calculating success rate on test data
+ ** MDClassifier.py : success = 3024
+ ** MDClassifier.py : sucess rate = 11.616472034419177%
+
+ ** MDClassifier.py : computing duration = 1.1533475359280905 min
+
+ ////////////////////////////////////////////////////////////
+
+ (TEST : Nearest Neighbors, 10000 train, full test, PCA @ Variance=0.95)
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (20000, 53)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDClassifier.py : final pca_dat shape =  (20000, 53)
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (26032, 53)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDKClassifier.py : final pca_dat shape =  (26032, 53)
+ ** MDClassifier.py : starting Nearest Neighbors classifier
+ ** MDClassifier.py : training Nearest Neighbors model
+ ** MDClassifier.py : starting Nearest Neighbors predictions on test data
+ ** MDClassifier.py : ending Nearest Neighbors predictions on test data
+ ** MDClassifier.py : calculating success rate on test data
+ ** MDClassifier.py : success = 2900
+ ** MDClassifier.py : sucess rate = 11.140135218192993%
+
+ ** MDClassifier.py : computing duration = 2.5015697916348776 min
+ 
+ ////////////////////////////////////////////////////////////
+ (TEST : DMIN, full train/test, PCA @ Variance=0.95)
+
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (73257, 54)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDClassifier.py : final pca_dat shape =  (73257, 54)
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (26032, 54)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDKClassifier.py : final pca_dat shape =  (26032, 54)
+ ** MDClassifier.py : starting to compute learning vectors
+ ** MDClassifier.py : computing with default data
+ ** MDClassifier.py : starting training of DMIN classifier
+ ** MDClassifier.py : splitting vectors by classes
+ ** MDClassifier.py : splitting done
+ ** MDClassifier.py : starting calculation of barycenters
+ ** MDClassifier.py : calculation done
+
+ ** MDClassifier.py : calculating success rate on test data
+ ** MDClassifier.py : success = 2355
+ ** MDClassifier.py : sucess rate = 9.046558082360171%
+
+ ** MDClassifier.py : computing duration = 6.5115691781044 min
+ 
+  ////////////////////////////////////////////////////////////
+ (TEST : SVC, 1000 train, full test, PCA @ Variance=0.95)
+
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (1000, 47)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDClassifier.py : final pca_dat shape =  (1000, 47)
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (26032, 47)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDKClassifier.py : final pca_dat shape =  (26032, 47)
+ ** MDClassifier.py : starting SVC classifier
+ ** MDClassifier.py : training SVC
+ ** MDClassifier.py : computing duration (SVC : training) = 17.144710302352905 s
+ ** MDClassifier.py : starting SVC predictions on test data
+ ** MDClassifier.py : end of SVC predictions on test data
+ ** MDClassifier.py : calculating success rate on test data
+ ** MDClassifier.py : success = 5099
+ ** MDClassifier.py : sucess rate = 19.587430854333128%
+
+ ** MDClassifier.py : computing duration = 1.8698683977127075 min
+
+ ////////////////////////////////////////////////////////////
+ (TEST : SVC, 5000 train, full test, PCA @ Variance=0.95)
+
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (5000, 52)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDClassifier.py : final pca_dat shape =  (5000, 52)
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (26032, 52)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDKClassifier.py : final pca_dat shape =  (26032, 52)
+ ** MDClassifier.py : starting SVC classifier
+ ** MDClassifier.py : training SVC
+ ** MDClassifier.py : computing duration (SVC : training) = 4.084799333413442 min
+ ** MDClassifier.py : starting SVC predictions on test data
+ ** MDClassifier.py : end of SVC predictions on test data
+ ** MDClassifier.py : calculating success rate on test data
+ ** MDClassifier.py : success = 5099
+ ** MDClassifier.py : sucess rate = 19.587430854333128%
+
+ ** MDClassifier.py : computing duration = 12.274364948272705 min
+ 
+ ////////////////////////////////////////////////////////////
+ (TEST : KNeighbors, 1000 train, full test, PCA @ Variance=0.95)
+
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (1000, 47)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDClassifier.py : final pca_dat shape =  (1000, 47)
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (26032, 47)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDKClassifier.py : final pca_dat shape =  (26032, 47)
+ ** MDClassifier.py : starting KNeighbors classifier
+ ** MDClassifier.py : training KNeighbors model
+ ** MDClassifier.py : starting KNeighbors predictions on test data
+ ** MDClassifier.py : ending KNeighbors predictions on test data
+ ** MDClassifier.py : calculating success rate on test data
+ ** MDClassifier.py : success = 3553
+ ** MDClassifier.py : sucess rate = 13.648586355255071%
+
+ ** MDClassifier.py : computing duration = 10.894150257110596 s
+
+////////////////////////////////////////////////////////////
+(TEST : KNeighbors, 5000 train, full test, PCA @ Variance=0.95)
+
+** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (5000, 52)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDClassifier.py : final pca_dat shape =  (5000, 52)
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (26032, 52)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDKClassifier.py : final pca_dat shape =  (26032, 52)
+ ** MDClassifier.py : starting KNeighbors classifier
+ ** MDClassifier.py : training KNeighbors model
+ ** MDClassifier.py : starting KNeighbors predictions on test data
+ ** MDClassifier.py : ending KNeighbors predictions on test data
+ ** MDClassifier.py : calculating success rate on test data
+ ** MDClassifier.py : success = 3673
+ ** MDClassifier.py : sucess rate = 14.109557467732023%
+
+ ** MDClassifier.py : computing duration = 1.1661086241404215 min
+
+////////////////////////////////////////////////////////////
+ (TEST : KNeighbors, 10000 train, full test, PCA @ Variance=0.95)
+
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (10000, 53)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDClassifier.py : final pca_dat shape =  (10000, 53)
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (26032, 53)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDKClassifier.py : final pca_dat shape =  (26032, 53)
+ ** MDClassifier.py : starting KNeighbors classifier
+ ** MDClassifier.py : training KNeighbors model
+ ** MDClassifier.py : starting KNeighbors predictions on test data
+ ** MDClassifier.py : ending KNeighbors predictions on test data
+ ** MDClassifier.py : calculating success rate on test data
+ ** MDClassifier.py : success = 3663
+ ** MDClassifier.py : sucess rate = 14.071143208358944%
+
+ ** MDClassifier.py : computing duration = 1.581164006392161 min
+
+////////////////////////////////////////////////////////////
+ (TEST : KNeighbors, full train, full test, PCA @ Variance=0.95)
+
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (73257, 54)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDClassifier.py : final pca_dat shape =  (73257, 54)
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (26032, 54)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDKClassifier.py : final pca_dat shape =  (26032, 54)
+ ** MDClassifier.py : starting KNeighbors classifier
+ ** MDClassifier.py : training KNeighbors model
+ ** MDClassifier.py : starting KNeighbors predictions on test data
+ ** MDClassifier.py : ending KNeighbors predictions on test data
+ ** MDClassifier.py : calculating success rate on test data
+ ** MDClassifier.py : success = 3905
+ ** MDClassifier.py : sucess rate = 15.000768285187462%
+
+ ** MDClassifier.py : computing duration = 7.942930579185486 min
+ 
+////////////////////////////////////////////////////////////
+ (TEST : KNeighbors, full train, full test, PCA @Variance = 0.99)
+ 
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (73257, 173)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDClassifier.py : final pca_dat shape =  (73257, 173)
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (26032, 173)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDKClassifier.py : final pca_dat shape =  (26032, 173)
+ ** MDClassifier.py : starting KNeighbors classifier
+ ** MDClassifier.py : training KNeighbors model
+ ** MDClassifier.py : starting KNeighbors predictions on test data
+ ** MDClassifier.py : ending KNeighbors predictions on test data
+ ** MDClassifier.py : calculating success rate on test data
+ ** MDClassifier.py : success = 3911
+ ** MDClassifier.py : sucess rate = 15.023816840811309%
+
+ ** MDClassifier.py : computing duration = 10.289696836471558 min
+
+ 
+////////////////////////////////////////////////////////////
+ (TEST : KNeighbors, full train, full test, NO PCA)
+ ** MDClassifier.py : starting KNeighbors classifier
+ ** MDClassifier.py : training KNeighbors model
+ ** MDClassifier.py : starting KNeighbors predictions on test data
+ ** MDClassifier.py : ending KNeighbors predictions on test data
+ ** MDClassifier.py : calculating success rate on test data
+ ** MDClassifier.py : success = 12191
+ ** MDClassifier.py : sucess rate = 46.83082360172096%
+
+ ** MDClassifier.py : computing duration = 125.10113941033681 min
+
+
+////////////////////////////////////////////////////////////
+(TEST : KNeighbors, full train, full test, PCA @ Variance=0.95)
+
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (73257, 60)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDClassifier.py : final pca_dat shape =  (73257, 60)
+ ** SKClassifier.py : starting PCA decomposition (PCA_filter) ...
+ ** SKClassifier.py : final pca_dat shape =  (26032, 60)
+ ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...
+ ** MDKClassifier.py : final pca_dat shape =  (26032, 60)
+ ** MDClassifier.py : starting KNeighbors classifier
+ ** MDClassifier.py : training KNeighbors model
+ ** MDClassifier.py : starting KNeighbors predictions on test data
+ ** MDClassifier.py : ending KNeighbors predictions on test data
+ ** MDClassifier.py : calculating success rate on test data
+ ** MDClassifier.py : success = 3931
+ ** MDClassifier.py : sucess rate = 15.100645359557468%
+
+ ** MDClassifier.py : computing duration = 2.023634998003642 min
+
+

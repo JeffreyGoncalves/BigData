@@ -32,6 +32,7 @@ def pca_filter(data, ncomp=0, ndata=0):
     print(" ** SKClassifier.py : final pca_dat shape = ", np.shape(pca_data))
     
     print(" ** SKClassifier.py : ending PCA decomposition (PCA_filter) ...")
+    
     return np.array(pca_data, order='C')
 
 

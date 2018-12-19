@@ -91,6 +91,10 @@ if __name__ == "__main__":
     x, y, nsamples, nb_train = np.shape(train_mat['X'])
     x, y, nsamples, nb_test = np.shape(test_mat['X'])
     
+    # Defines how much data will be used
+    # ~ nb_train = 10
+    # ~ nb_test = 10
+    
     # Setting training data into line vectors
     train_data = np.ndarray(shape=(nb_train, x*y*nsamples), dtype=np.uint8, order='C')
     train_labels = np.ndarray(shape=(nb_train), dtype=np.uint8, order='C')
@@ -111,9 +115,10 @@ if __name__ == "__main__":
     computeStart = time.time()
     div = False
     
-    pca_train = sk.pca_filter(train_data, 10)
+    pca_train = sk.pca_filter(train_data, 60)
     print(" ** MDClassifier.py : final pca_dat shape = ", np.shape(pca_train))
-    pca_test = sk.pca_filter(test_data, 10)
+ 
+    pca_test = sk.pca_filter(test_data, np.shape(pca_train)[1])
     print(" ** MDKClassifier.py : final pca_dat shape = ", np.shape(pca_test))
     
     
@@ -126,34 +131,34 @@ if __name__ == "__main__":
     # ~ print()
     
     # ~ # ********** sklearn.SVM classifier ************ #
-    svc = svm.SVC(degree=1)
-    print(" ** MDClassifier.py : starting SVC classifier")
-    print(" ** MDClassifier.py : training SVC")
-    svc.fit(train_data, train_labels)
+    # ~ svc = svm.SVC(gamma='scale')
+    # ~ print(" ** MDClassifier.py : starting SVC classifier")
+    # ~ print(" ** MDClassifier.py : training SVC")
+    # ~ svc.fit(train_data, train_labels)
     
-    div_mid = False
-    computeMid = time.time()
-    computeDurationMid = computeMid - computeStart
-    if computeDurationMid > 60 :
-        computeDurationMid = computeDurationMid / 60
-        div_mid = True
-    unit = " min" if div_mid else " s"
-    print(" ** MDClassifier.py : computing duration (SVC : training) = " + str(computeDurationMid) + unit)
+    # ~ div_mid = False
+    # ~ computeMid = time.time()
+    # ~ computeDurationMid = computeMid - computeStart
+    # ~ if computeDurationMid > 60 :
+        # ~ computeDurationMid = computeDurationMid / 60
+        # ~ div_mid = True
+    # ~ unit = " min" if div_mid else " s"
+    # ~ print(" ** MDClassifier.py : computing duration (SVC : training) = " + str(computeDurationMid) + unit)
     
-    print(" ** MDClassifier.py : starting SVC predictions on test data")
-    predicted_labels = svc.predict(test_data)
-    print(" ** MDClassifier.py : end of SVC predictions on test data")
+    # ~ print(" ** MDClassifier.py : starting SVC predictions on test data")
+    # ~ predicted_labels = svc.predict(test_data)
+    # ~ print(" ** MDClassifier.py : end of SVC predictions on test data")
     
     # ********** sklearn.neighbors classifier ****** #
     # ~ print(" ** MDClassifier.py : starting Nearest Neighbors classifier")
-    # ~ nb_neighbors = 1 # Must be int >= 1
+    # ~ nb_neighbors = 5 # Must be int >= 1
     # ~ neighbors_kdtree = neighbors.NearestNeighbors(n_neighbors=nb_neighbors, algorithm='kd_tree')
     # ~ print(" ** MDClassifier.py : training Nearest Neighbors model")
-    # ~ neighbors_kdtree.fit(train_data, train_labels)
+    # ~ neighbors_kdtree.fit(pca_train, train_labels)
     # ~ print(" ** MDClassifier.py : starting Nearest Neighbors predictions on test data")
-    # ~ distances, indices = neighbors_kdtree.kneighbors(test_data)
-    # ~ predicted_labels = np.ndarray(shape=(len(test_data)))
-    # ~ for i in range(len(test_data)) :
+    # ~ distances, indices = neighbors_kdtree.kneighbors(pca_test)
+    # ~ predicted_labels = np.ndarray(shape=(len(pca_test)))
+    # ~ for i in range(len(pca_test)) :
         # ~ mean_distances = {}
         # ~ if nb_neighbors == 2 :
             # ~ predicted_labels[i] = train_labels[indices[i]]
@@ -178,6 +183,16 @@ if __name__ == "__main__":
             # ~ predicted_labels[i] = min_label
         
     # ~ print(" ** MDClassifier.py : ending Nearest Neighbors predictions on test data")
+    
+    # ********** sklearn.neighbors KNeighborsClassifier classifier ****** #
+    print(" ** MDClassifier.py : starting KNeighbors classifier")
+    nb_neighbors = 5 # Must be int >= 1
+    knn = neighbors.KNeighborsClassifier(n_neighbors=nb_neighbors)
+    print(" ** MDClassifier.py : training KNeighbors model")
+    knn.fit(pca_train, train_labels)
+    print(" ** MDClassifier.py : starting KNeighbors predictions on test data")
+    predicted_labels = knn.predict(pca_test)
+    print(" ** MDClassifier.py : ending KNeighbors predictions on test data")
     
     ##################################################
     
