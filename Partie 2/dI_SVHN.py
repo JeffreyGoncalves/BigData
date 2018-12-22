@@ -4,8 +4,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import matplotlib.pyplot as plt
+import time
 from scipy.io import loadmat
 torch.manual_seed(0)
+
 
 class CNN(nn.Module):
 
@@ -17,17 +19,11 @@ class CNN(nn.Module):
             self.fc2 = nn.Linear(500, 10)
 
     def forward(self, x):
-            # print("size before processing : ", np.shape(x))
             x = F.relu(F.max_pool2d(self.conv1(x), 2))
-            # print("size after step 1 : ", np.shape(x))
             x = F.relu(F.max_pool2d(self.conv2(x), 2))
-            # print("size after step 2 : ", np.shape(x))
             x = x.view(x.shape[0], -1) # Flatten the tensor
-            # print("size after step 3 : ", np.shape(x))
             x = F.relu(self.fc1(x))
-            # print("size after step 4 : ", np.shape(x))
             x = F.log_softmax(self.fc2(x), dim=1)
-            # print("size after step 5 : ", np.shape(x))
             return x
 
 class LeNet(nn.Module):
@@ -41,19 +37,12 @@ class LeNet(nn.Module):
             self.fc3 = nn.Linear(84, 10)
 
     def forward(self, x):
-            # print("size before processing : ", np.shape(x))
             x = F.relu(F.max_pool2d(self.conv1(x), 2))
-            # print("size after step 1 : ", np.shape(x))
             x = F.relu(F.max_pool2d(self.conv2(x), 2))
-            # print("size after step 2 : ", np.shape(x))
             x = x.view(x.shape[0], -1) # Flatten the tensor
-            # print("size after step 3 : ", np.shape(x))
             x = F.relu(self.fc1(x))
-            # print("size after step 4 : ", np.shape(x))
             x = F.relu(self.fc2(x))
-            # print("size after step 5 : ", np.shape(x))
             x = F.log_softmax(self.fc3(x), dim=1)
-            # print("size after step 6 : ", np.shape(x))
             
             return x
 
@@ -67,18 +56,12 @@ class MLP(nn.Module):
             self.fc4 = nn.Linear(100, 10)
 
     def forward(self, x):
-            # print("size before processing : ", np.shape(x))
             x= x.contiguous()
             x = x.view(x.shape[0], -1) # Flatten the tensor
-            # print("size after step 1 : ", np.shape(x))
             x = F.relu(self.fc1(x))
-            # print("size after step 2 : ", np.shape(x))
             x = F.relu(self.fc2(x))
-            # print("size after step 3 : ", np.shape(x))
-            x = F.relu(self.fc3(x))
-            # print("size after step 4 : ", np.shape(x))
+            x = F.relu(self.fc3(x)))
             x = F.log_softmax(self.fc4(x), dim=1)
-            # print("size after step 5 : ", np.shape(x))
             
             return x
 
@@ -94,26 +77,25 @@ def success_rate(class_predicted, real_classes) :
     else :
         return 0
 
-
 if __name__ == '__main__':
 
     # Load the dataset
-    train_data = loadmat('../../Data/train_32x32.mat')
-    test_data = loadmat('../../Data/test_32x32.mat')
+    train_data = loadmat('train_32x32.mat')
+    test_data = loadmat('test_32x32.mat')
 
-    train_label = train_data['y'][:10000]
+    train_label = train_data['y']
     train_label = np.where(train_label==10, 0, train_label)
     train_label = torch.from_numpy(train_label.astype('int')).squeeze(1)
-    train_data = torch.from_numpy(train_data['X'].astype('float32')).permute(3, 2, 0, 1)[:1000]
+    train_data = torch.from_numpy(train_data['X'].astype('float32')).permute(3, 2, 0, 1)
 
-    test_label = test_data['y'][:1000]
+    test_label = test_data['y']
     test_label = np.where(test_label==10, 0, test_label)
     test_label = torch.from_numpy(test_label.astype('int')).squeeze(1)
-    test_data = torch.from_numpy(test_data['X'].astype('float32')).permute(3, 2, 0, 1)[:1000]
+    test_data = torch.from_numpy(test_data['X'].astype('float32')).permute(3, 2, 0, 1)
 
     # Hyperparameters
-    epoch_nbr = 100
-    batch_size = 10
+    epoch_nbr = 10
+    batch_size = 5
     learning_rate = 1e-4
 
     net = CNN()
@@ -121,6 +103,12 @@ if __name__ == '__main__':
     # ~ scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.75)
     x_axis = np.arange(0, epoch_nbr, 1)
     y_axis = []
+    
+    ##########
+    computeStart = time.time()
+    div = False
+    ##########
+    
     for e in range(epoch_nbr):
         success = 0.0
         # ~ scheduler.step()
@@ -138,15 +126,42 @@ if __name__ == '__main__':
         print("Final success rate : ", success, " %")
         print()
         y_axis.append(success)
+        
+    ##########
+    computeEnd = time.time()
+    computeDuration = computeEnd - computeStart
+    if computeDuration > 60 :
+        computeDuration = computeDuration / 60
+        div = True
+    unit = " min" if div else " s"
+    print(" training duration = " + str(computeDuration) + unit)
+    ##########
+    
     plt.plot(x_axis, y_axis)
     plt.gca().set_ylim([0,100])
     plt.gca().set_xlim([0,epoch_nbr-1])
     plt.show()
 
+    ##########
+    computeStart = time.time()
+    div = False
+    ##########
+    
     # Predictions sur les données de test
     predictions_test = net(test_data)
     _, test_class_predicted = torch.max(predictions_test, 1)
+    
+    computeEnd = time.time()
+    computeDuration = computeEnd - computeStart
+    if computeDuration > 60 :
+        computeDuration = computeDuration / 60
+        div = True
+    unit = " min" if div else " s"
+    print(" ** MDClassifier.py : computing duration = " + str(computeDuration) + unit)
+    
+    
     print("Success rate on test : ", success_rate(test_class_predicted, test_label), " %")
+    
 
 
 

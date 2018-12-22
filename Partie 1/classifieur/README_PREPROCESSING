@@ -1,0 +1,36 @@
+Afin de réaliser notre pré-processing, nous avons utilisés les fonctions du
+fichier "preprocessing.py", et notamment la fonction preprocessing(filepath, newFilepath)
+afin de génerer à partir des données de base des données pré-traitées.
+
+Pour pouvoir générer des données pré-traitées, il suffit d'executer le script
+"preprocessing.py" en prenant soin au préalable de modifier le script en 
+entrant pour "filepath" l'emplacement des données de base, en entrant pour 
+"newFilepath" l'emplacement des données pré-traitées à créer, et en modifiant la
+fonction de pré-traitement utilisée. Par exemple :
+
+def preprocessing(filepath, newFilepath) :
+	data = loadmat(filepath).copy()
+	for i in range(len(data['y'])) :
+		pic = binarise(data['X'][:,:,:,i])
+		data['X'][:,:,:,i] = pic
+		if i==0 :
+			plt.imshow(data['X'][:,:,:,i])
+			plt.show()
+		if i%1000 == 0 :
+			print("Avancement : ", i)
+	savemat(newFilepath, data) 
+	
+Ici, le pré-traitement utilisé est binarise sur les données couleur de base, ce
+qui va créer des données binarisées en couleur.
+
+Les fonctions de pré-traitement utilisables sont les suivantes :
+-- toGrayScale(picture)
+-- dynamicExpansion(picture)
+-- equalize(picture)
+-- binarise(picture)
+-- increase_contrast(picture, contrast) # Contraste entre 0 et 255 inclus
+
+Enfin, il est possible de combiner les fonctions de pré-traitement. Par exemple,
+nous avons utilisé une combinaison de toGrayScale(picture) avec binarise(picture)
+pour effectuer une binarisation noir/blanc.
+
